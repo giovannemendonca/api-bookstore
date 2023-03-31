@@ -1,7 +1,6 @@
 import fastify from 'fastify'
+import { appRoutes } from './http/routes/routes'
  
 export const app = fastify()
 
-app.get('/api', async() => {
-  return { message: 'Welcome to Api' }
-})
+app.register(appRoutes)
