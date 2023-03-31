@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id            String          @id @default(cuid())
+  title         String
+  description   String
+  ISBN13        String
+  value         String
+  quantity      Decimal
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  BookAuthor    BookAuthor[]
+  BookPublisher BookPublisher[]
+
+  @@map("books")
+}
+
+model Publisher {
+  id            String          @id @default(cuid())
+  name          String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  BookPublisher BookPublisher[]
+
+  @@map("publishers")
+}
+
+model Author {
+  id         String       @id @default(cuid())
+  name       String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  BookAuthor BookAuthor[]
+
+  @@map("authors")
+}
+
+model BookAuthor {
+  id String @id @default(cuid())
+
+  book   Book   @relation(fields: [bookId], references: [id])
+  bookId String
+
+  author   Author @relation(fields: [authorId], references: [id])
+  authorId String
+
+  @@map("book_authors")
+}
+
+model BookPublisher {
+  id String @id @default(cuid())
+
+  Book        Book      @relation(fields: [bookId], references: [id])
+  bookId      String
+  publisher   Publisher @relation(fields: [publisherId], references: [id])
+  publisherId String
+}
