@@ -17,8 +17,9 @@ export class InMemoryPublisherRepository implements PublisherRepository {
     return publisher
   }
 
-  
-  gerPublisher(): Promise<Publisher[] | null> {
-    throw new Error('Method not implemented.')
+  async gerPublisher(): Promise<Publisher[]> {
+    const publisher: Publisher[]= this.items
+
+    return publisher
   }
 }

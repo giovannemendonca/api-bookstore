@@ -15,7 +15,7 @@ describe('registe publisher', () => {
     const { publisher } = await sut.execute({
       name: 'Mendonça',
     })
-    console.log(publisher)
+
     expect(publisher.id).toEqual(expect.any(String))
   })
 })

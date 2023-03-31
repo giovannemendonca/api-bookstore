@@ -11,8 +11,23 @@ describe('get publisher', () => {
     sut = new GetPublisherService(publisherRepository)
   })
 
-  it.skip('should get a publisher', async () => {
+  it('should get a publisher', async () => {
+    await publisherRepository.create({
+      name: 'Mendonça',
+    })
+    await publisherRepository.create({
+      name: 'Soares',
+    })
     const data = await sut.execute()
-    expect(data?.publisher).toEqual(expect.any(Array))
+
+    expect(data).toHaveProperty('publisher')
+    expect(Array.isArray(data.publisher)).toBe(true)
+    expect(data.publisher).toHaveLength(2)
+  })
+
+  it('should are no publishers in the database', async () => {
+    const data = await sut.execute()
+    expect(data).toHaveProperty('publisher')
+    expect(Array.isArray(data.publisher)).toBe(true)
   })
 })

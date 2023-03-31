@@ -7,12 +7,9 @@ interface GetPublisherResponse {
 export class GetPublisherService {
   constructor(private publisherRepository: PublisherRepository) {}
 
-  async execute(): Promise<GetPublisherResponse | null> {
+  async execute(): Promise<GetPublisherResponse> {
     const publisher = await this.publisherRepository.gerPublisher()
 
-    if (!publisher) {
-      return null
-    }
     return {
       publisher,
     }
