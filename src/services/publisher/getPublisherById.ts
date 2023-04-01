@@ -2,19 +2,23 @@ import { Publisher } from '@prisma/client'
 import { PublisherRepository } from '@src/repositories/publisher-repository'
 import { ResourceNotFoundError } from '../errors/resource-no-found-erro'
 
-interface GetPublisherResponse {
-  publisher: Publisher[]
+interface GetPublisherByIdRequest {
+  id: string
 }
-export class GetPublisherService {
+
+interface GetPublisherByIdResponse {
+  publisher: Publisher
+}
+
+export class GetPublisherByIdService {
   constructor(private publisherRepository: PublisherRepository) {}
 
-  async execute(): Promise<GetPublisherResponse> {
-    const publisher = await this.publisherRepository.gerPublisher()
+  async execute({ id }: GetPublisherByIdRequest): Promise<GetPublisherByIdResponse> {
+    const publisher = await this.publisherRepository.getPublisherById(id)
 
-    if (publisher.length === 0) {
+    if (!publisher) {
       throw new ResourceNotFoundError()
     }
-
     return {
       publisher,
     }

@@ -4,7 +4,18 @@ import { PublisherRepository } from '../publisher-repository'
 import { randomUUID } from 'crypto'
 
 export class InMemoryPublisherRepository implements PublisherRepository {
-  public items: Publisher[] = []
+
+  private items: Publisher[] = []
+  
+  async getPublisherById(id: string) {
+    const publisher: Publisher | undefined = this.items.find(
+      (item) => item.id === id,
+    )
+    if (!publisher) {
+      return null
+    }
+    return publisher
+  }
 
   async create(data: Prisma.PublisherCreateInput) {
     const publisher: Publisher = {
@@ -18,7 +29,7 @@ export class InMemoryPublisherRepository implements PublisherRepository {
   }
 
   async gerPublisher(): Promise<Publisher[]> {
-    const publisher: Publisher[]= this.items
+    const publisher: Publisher[] = this.items
 
     return publisher
   }

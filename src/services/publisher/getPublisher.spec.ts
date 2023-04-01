@@ -1,6 +1,7 @@
 import { InMemoryPublisherRepository } from '@src/repositories/in-memory/in-memory-publisher-repository'
 import { GetPublisherService } from './getPublisher'
 import { describe, it, beforeEach, expect } from 'vitest'
+import { ResourceNotFoundError } from '../errors/resource-no-found-erro'
 
 let publisherRepository: InMemoryPublisherRepository
 let sut: GetPublisherService
@@ -26,8 +27,6 @@ describe('get publisher', () => {
   })
 
   it('should are no publishers in the database', async () => {
-    const data = await sut.execute()
-    expect(data).toHaveProperty('publisher')
-    expect(Array.isArray(data.publisher)).toBe(true)
+    expect(sut.execute()).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 })
