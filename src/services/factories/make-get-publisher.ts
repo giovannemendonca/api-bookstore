@@ -1,4 +1,4 @@
-import { PrimaPublisherRepository } from '@src/repositories/prisma/prima-publisher-repository'
+import { PrimaPublisherRepository } from '@src/repositories/prisma/prisma-publisher-repository'
 import { GetPublisherService } from '../publisher/getPublisher'
 
 export function makeGetPublisher() {

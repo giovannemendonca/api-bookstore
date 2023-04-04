@@ -1,10 +1,9 @@
-import { PrimaPublisherRepository } from '@src/repositories/prisma/prima-publisher-repository'
+import { PrimaPublisherRepository } from '@src/repositories/prisma/prisma-publisher-repository'
 import { RegisterService } from '../publisher/register'
 
 export function MakePublisherService() {
+  const publisherRepository = new PrimaPublisherRepository() // create | getPublisherByIdService | getPublisherService
 
-  const publisherRepository = new PrimaPublisherRepository()
-  const registerService =  new RegisterService(publisherRepository)
-
+  const registerService = new RegisterService(publisherRepository)
   return registerService
 }

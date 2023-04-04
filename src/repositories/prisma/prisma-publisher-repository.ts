@@ -3,11 +3,11 @@ import { PublisherRepository } from '../publisher-repository'
 import { prisma } from '@src/lib/prima'
 
 export class PrimaPublisherRepository implements PublisherRepository {
-  async  getPublisherById(id: string) {
+  async getPublisherById(id: string) {
     const publisher = prisma.publisher.findUnique({
       where: {
-        id: id
-      }
+        id: id,
+      },
     })
     return publisher
   }
